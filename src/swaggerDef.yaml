@@ -1,0 +1,199 @@
+openapi: 3.0.3
+info:
+  title: CollabSync API
+  version: 1.0.0
+  description: API for CollabSync web application
+servers:
+  - url: http://localhost:5000
+    description: Development Server
+paths:
+  /api/user:
+    post:
+      summary: Create a user account
+      tags:
+        - User
+      requestBody:
+        description: User account data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                email:
+                  type: string
+                access_token:
+                  type: string
+                refresh_token:
+                  type: string
+                expires_at:
+                  type: string
+              required:
+                - id
+      responses:
+        '201':
+          description: User account created successfully
+        '200':
+          description: User already exists
+        '500':
+          description: An error occurred
+
+  /api/user/{id}:
+    get:
+      summary: Get user data by ID
+      tags:
+        - User
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User ID
+          schema:
+            type: string
+      responses:
+        200:
+          description: User data retrieved successfully
+        404:
+          description: User not found
+        500:
+          description: An error occurred
+
+  /api/user/workspaces/{creatorId}:
+    get:
+      summary: Get workspaces data associated with a creator by ID
+      tags:
+        - User
+      parameters:
+        - name: creatorId
+          in: path
+          required: true
+          description: Creator's ID
+          schema:
+            type: string
+      responses:
+        200:
+          description: Workspaces data retrieved successfully
+        500:
+          description: An error occurred
+
+  /api/workspace:
+    post:
+      summary: Create a workspace
+      tags:
+        - Workspace
+      requestBody:
+        description: Workspace data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                workspaceName:
+                  type: string
+              required:
+                - userId
+                - workspaceName
+      responses:
+        201:
+          description: Workspace created successfully
+        403:
+          description: User does not have the necessary permissions or workspace not found
+        500:
+          description: An error occurred
+
+  /api/workspace/{workspaceId}:
+    get:
+      summary: Get workspace data by ID
+      tags:
+        - Workspace
+      parameters:
+        - name: workspaceId
+          in: path
+          required: true
+          description: Workspace ID
+          schema:
+            type: string
+      responses:
+        200:
+          description: Workspace data retrieved successfully
+        404:
+          description: Workspace not found
+        500:
+          description: An error occurred
+
+  /api/workspace/videos/{workspaceId}:
+    get:
+      summary: Get videos data associated with a workspace by ID
+      tags:
+        - Workspace
+      parameters:
+        - name: workspaceId
+          in: path
+          required: true
+          description: Workspace ID
+          schema:
+            type: string
+      responses:
+        200:
+          description: Videos data retrieved successfully
+        500:
+          description: An error occurred
+
+  /api/video:
+    post:
+      summary: Create a video
+      tags:
+        - Video
+      requestBody:
+        description: Video data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uploaderId:
+                  type: string
+                workspaceId:
+                  type: string
+                storageUrl:
+                  type: string
+                metadata:
+                  type: object
+              required:
+                - uploaderId
+                - workspaceId
+                - storageUrl
+                - metadata
+      responses:
+        200:
+          description: Video created successfully
+        403:
+          description: User does not have the necessary permissions or workspace not found
+        500:
+          description: An error occurred
+
+  /api/video/{videoId}:
+    get:
+      summary: Get video data by ID
+      tags:
+        - Video
+      parameters:
+        - name: videoId
+          in: path
+          required: true
+          description: Video ID
+          schema:
+            type: string
+      responses:
+        200:
+          description: Video data retrieved successfully
+        404:
+          description: Video not found
+        500:
+          description: An error occurred
