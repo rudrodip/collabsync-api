@@ -14,7 +14,7 @@ const router = express.Router();
 
 /**
  * Route for creating a new video.
- * @name POST/api/video/
+ * @name POST/api/video
  * @function
  * @memberof module:videoroute
  * @param {string} path - Express route path.
@@ -42,6 +42,21 @@ router.get(
   validateGetVideoData,
   isRequestValidated,
   videoController.getVideoData
+);
+
+/**
+ * Route for uploading a video to YouTube.
+ * @name POST/api/video/upload
+ * @function
+ * @memberof module:videoroute
+ * @param {string} path - Express route path.
+ * @param {Function[]} middleware - Middleware functions for request validation.
+ * @param {Function} controller - Controller function to handle the request.
+ */
+router.post(
+  "/upload",
+  isRequestValidated,
+  videoController.uploadToYT
 );
 
 module.exports = router;
