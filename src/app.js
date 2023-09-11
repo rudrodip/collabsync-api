@@ -1,4 +1,5 @@
 const express = require("express");
+const authenticateJWT = require('./middlewares/auth');
 const swaggerUi = require("swagger-ui-express");
 const fs = require("fs");
 const path = require("path");
@@ -18,6 +19,9 @@ const helmet = require("helmet");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Apply JWT authentication middleware globally
+// app.use("/api", authenticateJWT);
 
 // Use custom log format and skip favicon requests in Morgan
 app.use(morgan(customLogFormat, { skip: (req, _) => req.originalUrl === "/favicon.ico" }));
