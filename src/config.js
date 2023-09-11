@@ -22,6 +22,11 @@ dotenv.config();
  * @type {string}
  */
 const port = process.env.PORT;
+const twilio_ssid = process.env.TWLIIO_ACCOUNT_SSID
+const twilio_auth_token = process.env.TWILIO_AUTH_TOKEN
+const secret = process.env.SECRET
+const client_id = process.env.CLIENT_ID
+const client_secret = process.env.CLIENT_SECRET
 
 /**
  * Firebase configuration using environment variables.
@@ -41,4 +46,9 @@ module.exports = {
   port,
   projectId: process.env.FIREBASE_PROJECT_ID,
   credentials: firebaseConfig,
+  twilio_ssid,
+  twilio_auth_token,
+  secret,
+  client_id,
+  client_secret
 };
