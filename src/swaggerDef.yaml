@@ -150,7 +150,7 @@ paths:
       tags:
         - Video
       requestBody:
-        description: Video data
+        description: Video data including uploader ID, workspace ID, storage URL, and metadata.
         required: true
         content:
           application/json:
@@ -159,24 +159,55 @@ paths:
               properties:
                 uploaderId:
                   type: string
+                  description: The ID of the user who uploaded the video.
                 workspaceId:
                   type: string
+                  description: The ID of the workspace where the video belongs.
                 storageUrl:
                   type: string
+                  description: The URL of the video stored in Firebase or another storage service.
                 metadata:
                   type: object
-              required:
-                - uploaderId
-                - workspaceId
-                - storageUrl
-                - metadata
+                  properties:
+                    title:
+                      type: string
+                      description: The title of the video.
+                    description:
+                      type: string
+                      description: The description of the video.
+                    tags:
+                      type: array
+                      items:
+                        type: string
+                      description: An array of tags associated with the video.
+                    privacyStatus:
+                      type: string
+                      description: The privacy status of the video (e.g., 'private', 'public').
+                  required:
+                    - title
+                    - description
+                    - tags
+                    - privacyStatus
       responses:
-        200:
-          description: Video created successfully
+        201:
+          description: Video created successfully.
+          content:
+            application/json:
+              example:
+                message: Video created successfully.
+                videoId: abc123
         403:
-          description: User does not have the necessary permissions or workspace not found
+          description: User does not have the necessary permissions or workspace not found.
+          content:
+            application/json:
+              example:
+                error: User does not have the necessary permissions or workspace not found.
         500:
-          description: An error occurred
+          description: An error occurred.
+          content:
+            application/json:
+              example:
+                error: An error occurred.
 
   /api/video/{videoId}:
     get:
@@ -192,8 +223,29 @@ paths:
             type: string
       responses:
         200:
-          description: Video data retrieved successfully
+          description: Video data retrieved successfully.
+          content:
+            application/json:
+              example:
+                title: Example Video
+                description: This is an example video.
+                tags:
+                  - tag1
+                  - tag2
+                privacyStatus: private
+                uploaderId: user123
+                workspaceId: workspace456
+                storageUrl: https://example.com/videos/video123.mp4
         404:
-          description: Video not found
+          description: Video not found.
+          content:
+            application/json:
+              example:
+                message: Video not found.
         500:
-          description: An error occurred
+          description: An error occurred.
+          content:
+            application/json:
+              example:
+                error: An error occurred.
+
