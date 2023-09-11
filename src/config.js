@@ -19,7 +19,7 @@ dotenv.config();
 
 /**
  * Port number for the server.
- * @type {string}
+ * @type {number}
  */
 const port = process.env.PORT;
 const twilio_ssid = process.env.TWLIIO_ACCOUNT_SSID
