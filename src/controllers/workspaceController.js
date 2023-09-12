@@ -1,6 +1,7 @@
 const Workspace = require('../models/Workspace');
 const User = require('../models/User');
 const Video = require('../models/Video');
+const { Youtube } = require("../youtube");
 const { FieldValue } = require('../firebase');
 
 /**
@@ -105,4 +106,74 @@ async function getVideosData(req, res) {
   }
 }
 
-module.exports = { createWorkspace, getWorkspaceData, getVideosData };
+async function getChannel(req, res){
+  try {
+    const { userId, workspaceId } = req.body
+    const user = await User.getById(userId);
+    const workspace = await Workspace.getById(workspaceId)
+    
+    // Extract necessary data
+    const access_token = user.data.access_token;
+    const refresh_token = user.data.refresh_token;
+    const channel_id=  workspace.data.channel_id;
+
+    // Initialize the YouTube API client
+    const youtube = new Youtube(access_token, refresh_token);
+
+    const data = await youtube.getChannelById(channel_id)
+    res.status(200).json({ data })
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred." });
+  }
+}
+
+async function getChannelAnalytics(req, res){
+  try {
+    const { userId, workspaceId } = req.body
+    const user = await User.getById(userId);
+    const workspace = await Workspace.getById(workspaceId)
+    
+    // Extract necessary data
+    const access_token = user.data.access_token;
+    const refresh_token = user.data.refresh_token;
+    const channel_id=  workspace.data.channel_id;
+
+    // Initialize the YouTube API client
+    const youtube = new Youtube(access_token, refresh_token);
+
+    const data = await youtube.getChannelAnalytics(channel_id)
+    res.status(200).json({ data })
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred." });
+  }
+}
+
+async function getBestVideos(req, res){
+  try {
+    const { userId, workspaceId } = req.body
+    const user = await User.getById(userId);
+    const workspace = await Workspace.getById(workspaceId)
+    
+    // Extract necessary data
+    const access_token = user.data.access_token;
+    const refresh_token = user.data.refresh_token;
+    const channel_id=  workspace.data.channel_id;
+
+    // Initialize the YouTube API client
+    const youtube = new Youtube(access_token, refresh_token);
+
+    const data = await youtube.getBestPerformingVideos(channel_id)
+    res.status(200).json({ data })
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred." });
+  }
+}
+
+
+module.exports = { createWorkspace, getWorkspaceData, getVideosData, getChannel, getChannelAnalytics, getBestVideos };

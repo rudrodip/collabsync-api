@@ -9,6 +9,7 @@ class Workspace {
    * @param {Object} data - Workspace data.
    * @param {string} data.name - The name of the workspace.
    * @param {string} data.creator - The ID of the creator of the workspace.
+   * @param {string} [data.channel_id] - Youtube channel id.
    * @param {string[]} [data.editors=[]] - An array of editor IDs for the workspace.
    * @param {string[]} [data.pending_videos=[]] - An array of pending video IDs.
    * @param {string[]} [data.uploaded_videos=[]] - An array of uploaded video IDs.
