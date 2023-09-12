@@ -144,6 +144,101 @@ paths:
         500:
           description: An error occurred
 
+  /api/workspace/channel:
+    post:
+      summary: Get channel data
+      tags:
+        - Workspace
+      requestBody:
+        description: Channel data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                workspaceId:
+                  type: string
+                channelId:
+                  type: string
+              required:
+                - userId
+                - workspaceId
+                - channelId
+      responses:
+        200:
+          description: Channel data retrieved successfully
+        404:
+          description: Channel not found
+        500:
+          description: An error occurred
+
+  /api/workspace/channel-analytics:
+    post:
+      summary: Get channel analytics
+      tags:
+        - Workspace
+      requestBody:
+        description: Channel analytics data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                workspaceId:
+                  type: string
+                channelId:
+                  type: string
+                startDate:
+                  type: string
+              required:
+                - userId
+                - workspaceId
+                - channelId
+      responses:
+        200:
+          description: Channel analytics retrieved successfully
+        404:
+          description: Channel not found
+        500:
+          description: An error occurred
+
+  /api/workspace/channel-bestvideos:
+    post:
+      summary: Get best performing videos for a channel
+      tags:
+        - Workspace
+      requestBody:
+        description: Best performing videos data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                workspaceId:
+                  type: string
+                channelId:
+                  type: string
+              required:
+                - userId
+                - workspaceId
+                - channelId
+      responses:
+        200:
+          description: Best performing videos retrieved successfully
+        404:
+          description: Channel not found
+        500:
+          description: An error occurred
+
   /api/video:
     post:
       summary: Create a video
