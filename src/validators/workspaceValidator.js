@@ -34,6 +34,20 @@ const validateGetVideos = [
 ];
 
 /**
+ * Validation middleware for getting videos within a workspace.
+ * @type {import('express-validator').ValidationChain[]}
+ */
+const validateGetChannel = [
+  check('workspaceId')
+    .isLength({ min: 6 })
+    .withMessage('Workspace ID must be at least 6 characters long'),
+  check('userId')
+    .isLength({ min: 6 })
+    .withMessage('User ID must be at least 6 characters long'),
+];
+
+
+/**
  * Middleware to check if request is validated. If not, returns a 400 response with the first validation error message.
  * @function
  * @param {import('express').Request} req - The Express request object.
@@ -52,5 +66,6 @@ module.exports = {
   validateCreateWorkspace,
   validateGetWorkspace,
   validateGetVideos,
+  validateGetChannel,
   isRequestValidated,
 };
