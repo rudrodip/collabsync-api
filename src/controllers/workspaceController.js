@@ -15,11 +15,15 @@ async function createWorkspace(req, res) {
     const { userId, workspaceName } = req.body;
 
     const user = await User.getById(userId);
+    const youtube = new Youtube(user.data.access_token, user.data.refresh_token)
+    const channel = await youtube.getChannelById()
+    const channelId = channel.id
 
     if (user && user.data.roles.creator) {
       const workspace = new Workspace({
         creator: userId,
         name: workspaceName,
+        channel_id: channelId,
         editors: [],
         pending_videos: [],
         uploaded_videos: [],
