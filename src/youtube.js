@@ -125,15 +125,31 @@ class Youtube {
    */
   async getChannelById(channelId) {
     try {
-      const response = await this.youtube.channels.list({
-        auth: this.oauth2Client,
-        part: "snippet",
-        id: channelId,
-      });
+      let response;
+      if (channelId){
+        response = await this.youtube.channels.list({
+          auth: this.oauth2Client,
+          part: "snippet",
+          id: channelId,
+        });
+      } else {
+        response = await this.youtube.channels.list({
+          auth: this.oauth2Client,
+          part: "snippet",
+          mine: true,
+        });
+      }
 
       if (response.data.items.length > 0) {
         const channelData = response.data.items[0];
-        return channelData;
+        const data = {
+          id: channelData.id,
+          title: channelData.snippet.title,
+          desc: channelData.snippet.description,
+          customUrl: channelData.snippet.customUrl,
+          thumbnail: channelData.snippet.thumbnails.medium.url,
+        }
+        return data;
       } else {
         console.log("Channel not found");
         return null;
