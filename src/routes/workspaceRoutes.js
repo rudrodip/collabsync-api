@@ -4,6 +4,7 @@ const {
   validateCreateWorkspace,
   validateGetWorkspace,
   validateGetVideos,
+  validateGetChannel,
   isRequestValidated,
 } = require("../validators/workspaceValidator");
 
@@ -59,6 +60,27 @@ router.get(
   validateGetVideos,
   isRequestValidated,
   workspaceController.getVideosData
+);
+
+router.post(
+  "/channel",
+  validateGetChannel,
+  isRequestValidated,
+  workspaceController.getChannel
+);
+
+router.post(
+  "/channel-analytics",
+  validateGetChannel,
+  isRequestValidated,
+  workspaceController.getChannelAnalytics
+);
+
+router.post(
+  "/channel-bestvideos",
+  validateGetChannel,
+  isRequestValidated,
+  workspaceController.getBestVideos
 );
 
 module.exports = router;
