@@ -4,3 +4,5 @@
 .env
 **/serviceAccountKey.json
 **/client_secrets.json
+
+uploads/
