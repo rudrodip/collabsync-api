@@ -10,7 +10,8 @@ class Video {
    * @param {string} data.uploader - The ID of the user who uploaded the video.
    * @param {string} [data.approver] - The ID of the user who approved the video (optional).
    * @param {string} data.workspaceId - The ID of the workspace where the video belongs.
-   * @param {string} data.storageUrl - The URL where the video is stored.
+   * @param {string} data.videoFileName - The ID of the workspace where the video belongs.
+   * @param {string} data.thumbnailFileName - The ID of the workspace where the video belongs.
    * @param {Object} data.metadata - Metadata associated with the video.
    * @param {string} data.metadata.title - The title of the video.
    * @param {string} data.metadata.description - The description of the video.

@@ -13,22 +13,6 @@ const {
 const router = express.Router();
 
 /**
- * Route for creating a new video.
- * @name POST/api/video
- * @function
- * @memberof module:videoroute
- * @param {string} path - Express route path.
- * @param {Function[]} middleware - Middleware functions for request validation.
- * @param {Function} controller - Controller function to handle the request.
- */
-router.post(
-  "/",
-  validateCreateVideo,
-  isRequestValidated,
-  videoController.createVideo
-);
-
-/**
  * Route for getting video data by ID.
  * @name GET/api/video/:videoId
  * @function
@@ -46,6 +30,21 @@ router.get(
 
 /**
  * Route for uploading a video to YouTube.
+ * @name POST/api/video/uploadyt
+ * @function
+ * @memberof module:videoroute
+ * @param {string} path - Express route path.
+ * @param {Function[]} middleware - Middleware functions for request validation.
+ * @param {Function} controller - Controller function to handle the request.
+ */
+router.post(
+  "/uploadyt",
+  isRequestValidated,
+  videoController.uploadToYT
+);
+
+/**
+ * Route for uploading a video to collabsync server.
  * @name POST/api/video/upload
  * @function
  * @memberof module:videoroute
@@ -56,7 +55,20 @@ router.get(
 router.post(
   "/upload",
   isRequestValidated,
-  videoController.uploadToYT
+  videoController.uploadVideo
 );
+
+router.get(
+  "/stream/:filePath",
+  isRequestValidated,
+  videoController.streamVideo
+)
+
+router.get(
+  "/thumbnail/:filename",
+  isRequestValidated,
+  videoController.getThumbnail
+)
+
 
 module.exports = router;
